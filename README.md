@@ -4,4 +4,7 @@
 ```shell
 cd lesson1
 git clone -b polkadot-v0.9.40 --depth 1 https://github.com/substrate-developer-hub/substrate-node-template.git
+
+# 测试poe
+cargo test -p pallet-poe
 ```
