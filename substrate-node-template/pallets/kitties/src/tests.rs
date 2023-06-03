@@ -25,6 +25,8 @@ fn it_works_for_create() {
 			KittiesModule::create(RuntimeOrigin::signed(account_id)),
 			Error::<Test>::InvalidKittyId,
 		);
+
+		System::assert_last_event(Event::KittyCreated { who: account_id, kitty_id, kitty }.into())
 	})
 }
 

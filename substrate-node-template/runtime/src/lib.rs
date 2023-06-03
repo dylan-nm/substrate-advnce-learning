@@ -51,6 +51,9 @@ pub use pallet_template;
 /// An index to a block.
 pub type BlockNumber = u32;
 
+pub use pallet_insecure_randomness_collective_flip;
+pub use pallet_kitties;
+
 /// Alias to 512-bit hash when used in the context of a transaction signature on the chain.
 pub type Signature = MultiSignature;
 
@@ -273,6 +276,13 @@ impl pallet_poe::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 }
 
+impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
+
+impl pallet_kitties::Config for Runtime {
+	type RuntimeEvent = RuntimeEvent;
+	type Randomness = Randomness;
+}
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub struct Runtime
@@ -291,6 +301,8 @@ construct_runtime!(
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template,
 		PoeModule: pallet_poe,
+		Randomness: pallet_insecure_randomness_collective_flip,
+		Kitties: pallet_kitties,
 	}
 );
 
