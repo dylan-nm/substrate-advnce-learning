@@ -6,9 +6,8 @@
 >（建议用polkadot-v0.9.40这个版本，有问题的话去github上搜issue）提交的Github链接必须包含：⚠️代码运行的截图图片+⚠️全部代码
 
 ```shell
-cd lesson1
 git clone -b polkadot-v0.9.40 --depth 1 https://github.com/substrate-developer-hub/substrate-node-template.git
-
+cargo build --release
 # 测试poe
 cargo test -p pallet-poe
 ```
