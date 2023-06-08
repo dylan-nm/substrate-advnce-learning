@@ -280,7 +280,7 @@ impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
 
 impl pallet_kitties::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
-	type Randomness = Randomness;
+	type Randomness = InsecureRandomnessCollectiveFlip;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -301,7 +301,7 @@ construct_runtime!(
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template,
 		PoeModule: pallet_poe,
-		Randomness: pallet_insecure_randomness_collective_flip,
+		InsecureRandomnessCollectiveFlip: pallet_insecure_randomness_collective_flip,
 		Kitties: pallet_kitties,
 	}
 );
