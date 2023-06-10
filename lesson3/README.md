@@ -19,3 +19,9 @@
 [tests.rs](https://github.com/dylan-nm/substrate-advnce-learning/blob/main/substrate-node-template/pallets/kitties/src/tests.rs)
 
 #### 测试截图
+<img width="1089" alt="image" src="https://github.com/dylan-nm/substrate-advnce-learning/assets/41264413/192b95b5-6fc3-4671-ae48-bdac4429df94">
+
+### 截图
+<img width="1135" alt="image" src="https://github.com/dylan-nm/substrate-advnce-learning/assets/41264413/41a13805-c130-489e-9958-588d2d7b810d">
+
+<img width="1657" alt="image" src="https://github.com/dylan-nm/substrate-advnce-learning/assets/41264413/627e3d7c-ddb6-4ade-809a-8d719111a548">
