@@ -35,7 +35,7 @@ pub use frame_support::{
 		},
 		IdentityFee, Weight,
 	},
-	StorageValue,
+	PalletId, StorageValue,
 };
 pub use frame_system::Call as SystemCall;
 pub use pallet_balances::Call as BalancesCall;
@@ -50,9 +50,6 @@ pub use pallet_template;
 
 /// An index to a block.
 pub type BlockNumber = u32;
-
-pub use pallet_insecure_randomness_collective_flip;
-pub use pallet_kitties;
 
 /// Alias to 512-bit hash when used in the context of a transaction signature on the chain.
 pub type Signature = MultiSignature;
@@ -106,7 +103,7 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	//   `spec_version`, and `authoring_version` are the same between Wasm and native.
 	// This value is set to 100 to notify Polkadot-JS App (https://polkadot.js.org/apps) to use
 	//   the compatible custom types.
-	spec_version: 100,
+	spec_version: 102,
 	impl_version: 1,
 	apis: RUNTIME_API_VERSIONS,
 	transaction_version: 1,
@@ -266,21 +263,31 @@ impl pallet_sudo::Config for Runtime {
 	type RuntimeCall = RuntimeCall;
 }
 
+// pallet-insecure-randomness-collective-flip
+impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
+
 /// Configure the pallet-template in pallets/template.
 impl pallet_template::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
 }
 
+// pallet-poe
 impl pallet_poe::Config for Runtime {
-	type MaxClaimLength = ConstU32<512>;
 	type RuntimeEvent = RuntimeEvent;
+	type MaxClaimLength = ConstU32<512>;
 }
 
-impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
-
+// pallet-kitties
+parameter_types! {
+	pub KittiesPalletId: PalletId = PalletId(*b"py/kitty");
+	pub KittyPrice: Balance = EXISTENTIAL_DEPOSIT * 1000;
+}
 impl pallet_kitties::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
-	type Randomness = InsecureRandomnessCollectiveFlip;
+	type PalletId = KittiesPalletId;
+	type Currency = Balances;
+	type KittyDnaRandomness = InsecureRandomnessCollectiveFlip;
+	type KittyPrice = KittyPrice;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -298,11 +305,11 @@ construct_runtime!(
 		Balances: pallet_balances,
 		TransactionPayment: pallet_transaction_payment,
 		Sudo: pallet_sudo,
+		InsecureRandomnessCollectiveFlip: pallet_insecure_randomness_collective_flip,
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template,
-		PoeModule: pallet_poe,
-		InsecureRandomnessCollectiveFlip: pallet_insecure_randomness_collective_flip,
-		Kitties: pallet_kitties,
+		PalletPoe: pallet_poe,
+		PalletKitties: pallet_kitties,
 	}
 );
 
