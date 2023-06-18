@@ -1,4 +1,4 @@
-### Lesson3: Substrate Kitties 2
+### Lesson4: Off-chain Worker 
 >
 > 请回答链上随机数（如前面Kitties示例中）与链下随机数的区别
 >
