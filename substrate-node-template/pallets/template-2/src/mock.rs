@@ -16,7 +16,7 @@ frame_support::construct_runtime!(
 		UncheckedExtrinsic = UncheckedExtrinsic,
 	{
 		System: frame_system,
-		PalletPoe: crate,
+		PalletTemplate: crate,
 	}
 );
 
@@ -51,7 +51,6 @@ impl frame_system::Config for Test {
 // curent pallet
 impl crate::Config for Test {
 	type RuntimeEvent = RuntimeEvent;
-	type MaxClaimLength = ConstU32<10>;
 }
 
 // Build genesis storage according to the mock runtime.

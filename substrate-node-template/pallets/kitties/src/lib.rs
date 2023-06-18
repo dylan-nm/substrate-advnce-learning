@@ -234,7 +234,7 @@ mod pallet {
 			for i in 0..parent_1.dna.len() {
 				dna[i] = (parent_1.dna[i] & selector[i]) | (parent_2.dna[i] & !selector[i])
 			}
-			return dna;
+			return dna
 		}
 	}
 }

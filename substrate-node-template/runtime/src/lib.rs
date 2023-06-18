@@ -6,6 +6,12 @@
 #[cfg(feature = "std")]
 include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 
+//
+pub mod offchain;
+
+//
+mod pallets;
+
 use pallet_grandpa::AuthorityId as GrandpaId;
 use sp_api::impl_runtime_apis;
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
@@ -35,7 +41,7 @@ pub use frame_support::{
 		},
 		IdentityFee, Weight,
 	},
-	PalletId, StorageValue,
+	StorageValue,
 };
 pub use frame_system::Call as SystemCall;
 pub use pallet_balances::Call as BalancesCall;
@@ -263,31 +269,9 @@ impl pallet_sudo::Config for Runtime {
 	type RuntimeCall = RuntimeCall;
 }
 
-// pallet-insecure-randomness-collective-flip
-impl pallet_insecure_randomness_collective_flip::Config for Runtime {}
-
 /// Configure the pallet-template in pallets/template.
 impl pallet_template::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
-}
-
-// pallet-poe
-impl pallet_poe::Config for Runtime {
-	type RuntimeEvent = RuntimeEvent;
-	type MaxClaimLength = ConstU32<512>;
-}
-
-// pallet-kitties
-parameter_types! {
-	pub KittiesPalletId: PalletId = PalletId(*b"py/kitty");
-	pub KittyPrice: Balance = EXISTENTIAL_DEPOSIT * 1000;
-}
-impl pallet_kitties::Config for Runtime {
-	type RuntimeEvent = RuntimeEvent;
-	type PalletId = KittiesPalletId;
-	type Currency = Balances;
-	type KittyDnaRandomness = InsecureRandomnessCollectiveFlip;
-	type KittyPrice = KittyPrice;
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -305,11 +289,15 @@ construct_runtime!(
 		Balances: pallet_balances,
 		TransactionPayment: pallet_transaction_payment,
 		Sudo: pallet_sudo,
-		InsecureRandomnessCollectiveFlip: pallet_insecure_randomness_collective_flip,
 		// Include the custom logic from the pallet-template in the runtime.
 		TemplateModule: pallet_template,
+		//
+		InsecureRandomnessCollectiveFlip: pallet_insecure_randomness_collective_flip,
+		PalletTemplate: pallet_template_2,
 		PalletPoe: pallet_poe,
 		PalletKitties: pallet_kitties,
+		//PalletOcwTutorials: pallet_ocw_tutorials,
+		PalletOcwHomework: pallet_ocw_homework,
 	}
 );
 

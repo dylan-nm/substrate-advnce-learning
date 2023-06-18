@@ -1,10 +1,13 @@
 [workspace]
 members = [
 	"node",
+	"runtime",
 	"pallets/template",
+	"pallets/template-2",
 	"pallets/poe",
 	"pallets/kitties",
-	"runtime",
+	"pallets/ocw-tutorials",
+	"pallets/ocw-homework",
 ]
 [profile.release]
 panic = "unwind"
