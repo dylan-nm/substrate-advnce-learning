@@ -15,6 +15,7 @@ impl pallet_template_2::Config for Runtime {
 // pallet-poe
 impl pallet_poe::Config for Runtime {
 	type RuntimeEvent = RuntimeEvent;
+	type WeightInfo = pallet_poe::weights::SubstrateWeight<Runtime>;
 	type MaxClaimLength = ConstU32<512>;
 }
 

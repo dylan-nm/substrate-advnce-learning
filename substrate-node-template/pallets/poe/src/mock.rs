@@ -51,6 +51,7 @@ impl frame_system::Config for Test {
 // curent pallet
 impl crate::Config for Test {
 	type RuntimeEvent = RuntimeEvent;
+	type WeightInfo = ();
 	type MaxClaimLength = ConstU32<10>;
 }
 
